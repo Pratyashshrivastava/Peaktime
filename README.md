@@ -1,4 +1,4 @@
-# AIComputerVision
+# Peaktime
 This project contains various computer vision and AI related python scripts
 
 Link to full playlist: https://www.youtube.com/watch?v=UM9oDhhAg88&list=PLWw98q-Xe7iH8UHARl8RGk8MRj1raY4Eh
