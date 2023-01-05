@@ -1,9 +1,9 @@
 First remove all the pre-existing file odf openCV from your computer manually and reinstall it and then see if the
 program runs or not.
 if it runs then do the following:
-    1) access the laptop webcam using openCV and integrate it with your code.
-    2) Then create a time-stamp variable and store time into it
-    3) Create a .csv file and store (total count, Live count, Time_stamp) into it.
+    1) access the laptop webcam using openCV and integrate it with your code. Done
+    2) Then create a time-stamp variable and store time into it Done
+    3) Create a .csv file and store (total count, Live count, Time_stamp) into it. Done
     4) Collect the data for 2 or 3 days.
     5) Then create a rolling average function in it to find the peak time and live count for that interval and return that value.
 
@@ -14,10 +14,24 @@ if it runs then do the following:
         2) Frames messed up: previous frame is not getting away and live count is not decreasing. [SOLVED]
 
             Solutions:
-                a) create a new model for personID and frame creation.
+                a) create a new model for personID and frame creation. 
                 b) Understand each and every part of this code and make required changes.
 
        3) Creating a csv file and store data:
             format: (total count, Live Count, Time_stamp)
             issue: Too massive data
-                solution: Change the datetime format from [YYYY-MM-DD HH:MM:SS.MiliSeconds] -> [YYYY-MM-DD HH:MM]
+                solution: Change the datetime format from [YYYY-MM-DD HH:MM:SS.MiliSeconds] -> [YYYY-MM-DD HH:MM] Done
+
+    
+New task:
+1) convert all the code into various functions.
+2) Face Finger Print:
+    why: As a person A goes out of the frame and when it returns back its id changes as it is not stored in the database
+    Sol: So now we have to create a database to which stores face fingerprint of the a person and give it a random id which is stored in the data.
+
+    How to create face fingerprint: 
+    method1: Take a snapshot of the frame and give it a random id and store it in the data. Now create a face detection model to detect and match from the database and get the Id 
+    allocated. Now display the id in the realtime.
+        Problems: 
+            Integration of the code.
+            New Id creation for the new person( not listed in the database).
