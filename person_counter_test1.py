@@ -88,10 +88,9 @@ def main():
 
 
 
-    f = open('Data_test.csv', 'w')
+    f = open('Data_test.csv', 'a+')
     writer = csv.writer(f)
-    header = ["opc_count", "lpc_count", "date_time_str"]
-    writer.writerow(header)
+    # writer.writerow(header)
 
     Data = []
     isDataWriteLocked = False
@@ -194,3 +193,20 @@ def main():
     f.close()
 
 main()
+
+
+
+
+# I have to run it every 5 minutes and then it will automatically get locked and unlocked and then it will write the data in csv file.
+# how to run it every 2 minutes ??
+# how to lock and unlock the data ??
+# how to write the data in csv file ??
+# how to run it in background ??
+# how to run it in background even if the system is off ??
+# how to run it in background even if the system is off and then it will automatically get on and run the code and then again get off ??
+# how to run it in background even if the system is off and then it will automatically get on and run the code and then again get off and this process will continue for 24 hours ??
+
+'''cronjob = CronTab(user='root')
+job = cronjob.new(command='python3 /home/akshay/Desktop/Project/Project.py')
+job.minute.every(2)
+cronjob.write()'''

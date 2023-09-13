@@ -35,3 +35,5 @@ New task:
         Problems: 
             Integration of the code.
             New Id creation for the new person( not listed in the database).
+            How to run both the model simultaneously cause it will be a very hectic task for the computer and high accuracy is required for both the model.
+                Sol1: Use multi surver approach we discussed in for accomplishing various tasks.
