@@ -4,18 +4,9 @@ import imutils
 import numpy as np
 from centroidtracker import CentroidTracker
 import csv
-# import datetime
-
-
-# print("Date and time is:", dt)
-# print("Timestamp is:", ts)
-
 protopath = "MobileNetSSD_deploy.prototxt"
 modelpath = "MobileNetSSD_deploy.caffemodel"
 detector = cv2.dnn.readNetFromCaffe(prototxt=protopath, caffeModel=modelpath)
-# detector.setPreferableBackend(cv2.dnn.DNN_BACKEND_INFERENCE_ENGINE)
-# detector.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
-
 
 CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat",
            "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
@@ -75,23 +66,15 @@ def main():
     lpc_count = 0
     opc_count = 0
 
-    #  Timestamp
-
-    # Getting the current date and time
     dt = datetime.datetime.now()
-
-    # getting the timestamp
-    # ts = datetime.timestamp(dt)
-
-
     object_id_list = []
 
 
 
-    f = open('Data_test.csv', 'a+')
+    f = open('Data_test.csv', 'w')
     writer = csv.writer(f)
-    # writer.writerow(header)
-
+    header = ["opc_count", "lpc_count", "dt"]
+    writer.writerow(header)
     Data = []
     isDataWriteLocked = False
 
@@ -179,10 +162,8 @@ def main():
         cv2.putText(frame, opc_txt, (5, 90), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (0, 0, 255), 1)
         cv2.putText(frame, ts_txt, (5, 100), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (0, 0, 255), 1)
 
-        # print(Data)
         cv2.imshow("Application", frame)
         key = cv2.waitKey(1)
-        # f.close()
         if key == ord('q'):
             break
 
@@ -192,19 +173,43 @@ def main():
         writer.writerow(i)
     f.close()
 
-main()
+def read_data_from_csv(file_path):
+    data = []
+    with open(file_path, 'r') as file:
+        reader = csv.reader(file)
+        next(reader)  
+        for row in reader:
+            if len(row) >= 3:
+                timestamp = row[2]
+                data.append((int(row[0]), int(row[1]), timestamp))
+            else:
+                pass
+    return data
+def peakTime():
+
+    
+
+    data_file_path = 'Data_test.csv'
+    data = read_data_from_csv(data_file_path)
+
+    data_tuples = [(int(row[0]), row[2]) for row in data]
+
+    opc_counts = [row[0] for row in data_tuples]
+    sorted_data = sorted(data, key=lambda x: x[0], reverse=True)
+
+    first_three_max = sorted_data[:3]
+
+    print("First three maximum Overall Person Count:")
+    for i, (opc_count, lpc_count, timestamp) in enumerate(first_three_max, start=1):
+        print(f"{i}. OPC Count: {opc_count}, LPC Count: {lpc_count}, Timestamp: {timestamp}")
+
+if __name__=="__main__":
+    main()
+    peakTime()
 
 
 
 
-# I have to run it every 5 minutes and then it will automatically get locked and unlocked and then it will write the data in csv file.
-# how to run it every 2 minutes ??
-# how to lock and unlock the data ??
-# how to write the data in csv file ??
-# how to run it in background ??
-# how to run it in background even if the system is off ??
-# how to run it in background even if the system is off and then it will automatically get on and run the code and then again get off ??
-# how to run it in background even if the system is off and then it will automatically get on and run the code and then again get off and this process will continue for 24 hours ??
 
 '''cronjob = CronTab(user='root')
 job = cronjob.new(command='python3 /home/akshay/Desktop/Project/Project.py')
